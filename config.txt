@@ -1,0 +1,2 @@
+api-key=RGAPI-7939ac1e-f851-44e4-8b04-3464ff68fdc7
+filepath=C:\School\University\League Bot/output.txt

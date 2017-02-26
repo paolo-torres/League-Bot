@@ -1,0 +1,6 @@
+Name: BIG RF Legendary
+Champ: Annie
+Win Rate: 55%
+KDA: 2.7
+Sums: Flash, Ign
+Items: Large Rod, Liandry's, Ionians, B Wand, Codex, Void
