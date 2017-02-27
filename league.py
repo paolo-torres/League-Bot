@@ -30,22 +30,22 @@ def main():
 	else:
 		print "Could not connect when getting challenger players"
 
-def tweetRTLike(summonerName, championName, wins, losses, kills, deaths, assists, sum1, sum2, item1, item2, item3, item4, item5, item6):
+def tweetRTLike(summonerName, championName, wins, losses, kills, deaths, assists, sum1, sum2, item1, item2, item3, item4, item5, item6, championKey):
 	winRate = int((float(wins) / (wins + losses)) * 100)
 	KDA = (kills + assists) / deaths
 	leagueInformation = "Name: %s\nChamp: %s\nWin Rate: %s%%\nKDA: %s\nSums: %s, %s\nItems: %s, %s, %s, %s, %s, %s" % (summonerName, championName, winRate, KDA, sum1, sum2, item1, item2, item3, item4, item5, item6)
 	print leagueInformation
 	posts = api.user_timeline(screen_name = "@lolesports", count = 1)
 	for post in posts:
-		#api.retweet(post.id)
-		#api.create_favorite(post.id)
+		api.retweet(post.id)
+		api.create_favorite(post.id)
 		print("Retweeted LoL Esports")
 	outputFile = open("output.txt", "w")
 	outputFile.write(leagueInformation)
 	outputFile = open("output.txt", "r")
 	tweetInformation = outputFile.read()
 	imageFileName = "championImage.jpg"
-	requestChampionImage = requests.get("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + championName + "_0.jpg", stream = True)
+	requestChampionImage = requests.get("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + championKey + "_0.jpg", stream = True)
 	if(requestChampionImage.status_code == 200):
 		with open(imageFileName, "wb") as image:
 			for chunk in requestChampionImage:
@@ -98,7 +98,10 @@ def getSummonerInformation(jList):
 	summonerSpells = []
 	for j in jList:
 		j = j.json()
-		participants = j["participants"][0]
+		try:
+			participants = j["participants"][0]
+		except KeyError:
+			continue
 		stats = participants["stats"]
 		item1 = stats.get("item0", 0)
 		item2 = stats.get("item1", 0)
@@ -114,6 +117,14 @@ def getSummonerInformation(jList):
 		itemBuilds.append([item1, item2, item3, item4, item5, item6])
 		summonerSpells.append([participants["spell1Id"], participants["spell2Id"]])
 	return potentialChampions, itemBuilds, summonerSpells
+
+def getChampionKey(ID):
+	requestChampionID = requests.get("https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion/" + str(ID) + "?api_key=" + key)
+	if(requestChampionID.status_code == 200):
+		ChampionIDJSON = requestChampionID.json()
+		return ChampionIDJSON["key"]
+	else:
+		raise KeyError("Cound not connect when getting the key of the champion with the ID: " + str(highestChampionID))
 
 def getChampionName(ID):
 	requestChampionID = requests.get("https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion/" + str(ID) + "?api_key=" + key)
@@ -176,6 +187,8 @@ def getItemNames(itemBuild):
 				itemNames[i] = "Ward"
 			elif (itemNames[i] == "Corrupting Potion"):
 				itemNames[i] = "Corrupt Pot"
+			elif (itemNames[i] == "Crystalline Bracer"):
+				itemNames[i] = "C Bracer"
 			elif (itemNames[i] == "Dead Man's Plate"):
 				itemNames[i] = "Dead Man's"
 			elif (itemNames[i] == "Doran's Blade"):
@@ -212,6 +225,8 @@ def getItemNames(itemBuild):
 				itemNames[i] = "Codex"
 			elif (itemNames[i] == "Frost Queen's Claim"):
 				itemNames[i] = "Frost Queen's"
+			elif (itemNames[i] == "Frozen Mallet"):
+				itemNames[i] = "Mallet"
 			elif (itemNames[i] == "Guardian Angel"):
 				itemNames[i] = "GA"
 			elif (itemNames[i] == "Giant's Belt"):
@@ -290,10 +305,12 @@ def getItemNames(itemBuild):
 				itemNames[i] = "Ravenous"
 			elif (itemNames[i] == "Refillable Potion"):
 				itemNames[i] = "Refill Pot"
+			elif (itemNames[i] == "Relic Shield"):
+				itemNames[i] = "Relic"
 			elif (itemNames[i] == "Rod of Ages"):
 				itemNames[i] = "RoA"
 			elif (itemNames[i] == "Ruby Sightstone"):
-				itemNames[i] = "Sightstone"
+				itemNames[i] = "Ruby S Stone"
 			elif (itemNames[i] == "Runaan's Hurricane"):
 				itemNames[i] = "Runaan's"
 			elif (itemNames[i] == "Rylai's Crystal Scepter"):
@@ -307,7 +324,7 @@ def getItemNames(itemBuild):
 			elif (itemNames[i] == "Sightstone"):
 				itemNames[i] = "S Stone"
 			elif (itemNames[i] == "Sorcerer's Shoes"):
-				itemNames[i] = "Sorc Shoes"
+				itemNames[i] = "Sorcs"
 			elif (itemNames[i] == "Spectre's Cowl"):
 				itemNames[i] = "Spectre's"
 			elif (itemNames[i] == "Spellthief's Edge"):
@@ -389,7 +406,10 @@ def get10MatchIDs(j):
 	matches = []
 	count = 0
 	for i in range(len(j)):
-		curr = j["matches"][i]
+		try:
+			curr = j["matches"][i]
+		except KeyError:
+			continue
 		if curr["queue"] == "TEAM_BUILDER_RANKED_SOLO":
 			matches.append(curr["matchId"])
 			count += 1
@@ -438,10 +458,11 @@ def meetsRequirements(summonerName):
 			itemBuild = itemBuild[location]
 			summonerSpell1 = summonerSpells[location][0]
 			summonerSpell2 = summonerSpells[location][1]
+			championKey = getChampionKey(championID)
 			championName = getChampionName(championID)
 			itemBuildName = getItemNames(itemBuild)
 			spellName1, spellName2 = getSummonerSpellName(summonerSpell1, summonerSpell2)
-			tweetRTLike(summonerName, championName, wins, losses, kills, deaths, assists, spellName1, spellName2, itemBuildName[0], itemBuildName[1], itemBuildName[2], itemBuildName[3], itemBuildName[4], itemBuildName[5])
+			tweetRTLike(summonerName, championName, wins, losses, kills, deaths, assists, spellName1, spellName2, itemBuildName[0], itemBuildName[1], itemBuildName[2], itemBuildName[3], itemBuildName[4], itemBuildName[5], championKey)
 			return True
 		else:
 			print "Cound not connect when getting ranked stats for " + summonerName
