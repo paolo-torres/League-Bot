@@ -17,6 +17,8 @@ def getItemNames(itemBuild):
 				itemNames[i] = "Aether"
 			elif(itemNames[i] == "Amplifying Tome"):
 				itemNames[i] = "Tome"
+			elif(itemNames[i] == "Archangel's Staff"):
+				itemNames[i] = "Archangel's"
 			elif(itemNames[i] == "Ardent Censer"):
 				itemNames[i] = "Ardent"
 			elif(itemNames[i] == "Athene's Unholy Grail"):
