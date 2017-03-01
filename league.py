@@ -65,6 +65,8 @@ def meetsRequirements(summonerName):
 			data = getGamesWinsLossesKDA(statsJSON, highestChampionID)
 			games = data[0]
 			wins = data[1]
+			if(wins == 0):
+				return False
 			losses = data[2]
 			kills = data[3]
 			deaths = data[4]
@@ -463,11 +465,15 @@ def tweetRTLike(summonerName, championName, winRate, KDA, sum1, sum2, item1, ite
 	print "Done"
 	leagueInformation = "Name: %s\nChamp: %s\nWin Rate: %s%%\nKDA: %s\nSums: %s, %s\nItems: %s, %s, %s, %s, %s, %s" % (summonerName, championName, winRate, KDA, sum1, sum2, item1, item2, item3, item4, item5, item6)
 	print leagueInformation
-	posts = api.user_timeline(screen_name = "@lolesports", count = 1)
+	posts = api.user_timeline(screen_name = "@lolesports", count = 10)
 	for post in posts:
-		api.retweet(post.id)
-		api.create_favorite(post.id)
-		print "Retweeted LoL Esports"
+		try:
+			api.retweet(post.id)
+			api.create_favorite(post.id)
+		except tweepy.error.TweepError:
+			continue
+		print "Retweeted and liked LoL Esports"
+		break;
 	outputFile = open("output.txt", "w")
 	outputFile.write(leagueInformation)
 	outputFile = open("output.txt", "r")
