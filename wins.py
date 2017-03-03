@@ -14,7 +14,7 @@ def getMostWinsChampion(j, potentialChampions):
 				highestChampionID = i
 		else:
 			continue
-	if(highestChampionID != -1):
+	if (highestChampionID != -1):
 		return highestChampionID
 	else:
 		return potentialChampions[0]

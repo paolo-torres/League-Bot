@@ -27,7 +27,7 @@ def tweetRTLike(summonerName, championName, winRate, KDA, sum1, sum2, item1, ite
 	tweetInformation = outputFile.read()
 	imageFileName = "championImage.jpg"
 	requestChampionImage = requests.get("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + championKey + "_0.jpg", stream = True)
-	if(requestChampionImage.status_code == 200):
+	if (requestChampionImage.status_code == 200):
 		with open(imageFileName, "wb") as image:
 			for chunk in requestChampionImage:
 				image.write(chunk)

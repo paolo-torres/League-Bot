@@ -14,7 +14,7 @@ from twitter import tweetRTLike
 def meetsRequirements(summonerName):
 	print "Loading: 10%"
 	requestSummonerID = requests.get("https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + summonerName + "?api_key=" + key)
-	if(requestSummonerID.status_code == 200):
+	if (requestSummonerID.status_code == 200):
 		summonerIDJSON = requestSummonerID.json()
 		summonerNameStripped = summonerName
 		summonerNameStripped = summonerNameStripped.lower()
@@ -35,16 +35,16 @@ def meetsRequirements(summonerName):
 			except Exception as e:
 				print requestMatch.text
 		potentialChampions, itemBuild, summonerSpells = getSummonerInformation(matchInformationJSON)
-		if(not potentialChampions):
+		if (not potentialChampions):
 			return False
 		requestStats = requests.get('https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/' + str(summonerID) + '/ranked?api_key=' + key)
-		if(requestStats.status_code == 200):
+		if (requestStats.status_code == 200):
 			statsJSON = requestStats.json()
 			highestChampionID = getMostWinsChampion(statsJSON, potentialChampions)
 			data = getGamesWinsLossesKDA(statsJSON, highestChampionID)
 			games = data[0]
 			wins = data[1]
-			if(wins == 0):
+			if (wins == 0):
 				return False
 			losses = data[2]
 			kills = data[3]

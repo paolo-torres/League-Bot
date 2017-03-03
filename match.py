@@ -7,9 +7,9 @@ def get10MatchIDs(j):
 			curr = j["matches"][i]
 		except KeyError:
 			continue
-		if(curr["queue"] == "TEAM_BUILDER_RANKED_SOLO"):
+		if (curr["queue"] == "TEAM_BUILDER_RANKED_SOLO"):
 			matches.append(curr["matchId"])
 			count += 1
-		if(count == 30):
+		if (count == 30):
 			break
 	return matches

@@ -16,7 +16,7 @@ def getSummonerInformation(jList):
 		item4 = stats.get("item3", 0)
 		item5 = stats.get("item4", 0)
 		item6 = stats.get("item5", 0)
-		if(item1 == 0 or item2 == 0 or item3 == 0 or item4 == 0 or item5 == 0 or item6 == 0):
+		if (item1 == 0 or item2 == 0 or item3 == 0 or item4 == 0 or item5 == 0 or item6 == 0):
 			continue
 		if participants["championId"] in potentialChampions:
 			continue
