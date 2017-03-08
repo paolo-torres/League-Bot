@@ -181,6 +181,8 @@ def getItemNames(itemBuild):
 				itemNames[i] = "Refill Pot"
 			elif (itemNames[i] == "Relic Shield"):
 				itemNames[i] = "Relic"
+			elif (itemNames[i] == "Righteous Glory"):
+				itemNames[i] = "R Glory"
 			elif (itemNames[i] == "Rod of Ages"):
 				itemNames[i] = "RoA"
 			elif (itemNames[i] == "Ruby Crystal"):
