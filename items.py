@@ -76,7 +76,7 @@ def getItemNames(itemBuild):
 			elif (itemNames[i] == "Enchantment: Bloodrazor"):
 				itemNames[i] = "Bloodrazor"
 			elif (itemNames[i] == "Enchantment: Cinderhulk"):
-				itemNames[i] = "Cinderhulk"
+				itemNames[i] = "Cinder"
 			elif (itemNames[i] == "Enchantment: Runic Echoes"):
 				itemNames[i] = "Runic"
 			elif (itemNames[i] == "Enchantment: Warrior"):
@@ -238,7 +238,7 @@ def getItemNames(itemBuild):
 			elif (itemNames[i] == "Total Biscuit of Rejuvenation"):
 				itemNames[i] = "Biscuits"
 			elif (itemNames[i] == "Trinity Force"):
-				itemNames[i] = "Tri Force"
+				itemNames[i] = "Tri"
 			elif (itemNames[i] == "Vampiric Scepter"):
 				itemNames[i] = "Vamp Scepter"
 			elif (itemNames[i] == "Void Staff"):
