@@ -240,7 +240,7 @@ def getItemNames(itemBuild):
 			elif (itemNames[i] == "Trinity Force"):
 				itemNames[i] = "Tri"
 			elif (itemNames[i] == "Vampiric Scepter"):
-				itemNames[i] = "Vamp Scepter"
+				itemNames[i] = "Vamp"
 			elif (itemNames[i] == "Void Staff"):
 				itemNames[i] = "Void"
 			elif (itemNames[i] == "Warden's Mail"):
