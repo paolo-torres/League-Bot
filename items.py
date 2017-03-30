@@ -152,7 +152,7 @@ def getItemNames(itemBuild):
 			elif (itemNames[i] == "Morellonomicon"):
 				itemNames[i] = "Morello"
 			elif (itemNames[i] == "Mortal Reminder"):
-				itemNames[i] = "M Reminder"
+				itemNames[i] = "Mortal"
 			elif (itemNames[i] == "Nashor's Tooth"):
 				itemNames[i] = "Nashor's"
 			elif (itemNames[i] == "Needlessly Large Rod"):
