@@ -1,6 +1,6 @@
-Name: BIG RF Legendary
-Champ: Annie
-Win Rate: 55%
-KDA: 2.7
-Sums: Flash, Ign
-Items: Large Rod, Liandry's, Ionians, B Wand, Codex, Void
+Name: Rikara
+Champ: Lee
+Win Rate: 80%
+KDA: 3.9
+Sums: Smite, Flash
+Items: Warrior, Ward, Visage, Dead Man's, Cleaver, Tabis
