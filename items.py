@@ -17,6 +17,8 @@ def getItemNames(itemBuild):
 				itemNames[i] = "Aether"
 			elif (itemNames[i] == "Amplifying Tome"):
 				itemNames[i] = "Tome"
+			elif (itemNames[i] == "Ancient Coin"):
+				itemNames[i] = "Coin"
 			elif (itemNames[i] == "Archangel's Staff"):
 				itemNames[i] = "Archangel's"
 			elif (itemNames[i] == "Ardent Censer"):
@@ -177,6 +179,8 @@ def getItemNames(itemBuild):
 				itemNames[i] = "RFC"
 			elif (itemNames[i] == "Ravenous Hydra"):
 				itemNames[i] = "Ravenous"
+			elif (itemNames[i] == "Redemption"):
+				itemNames[i] = "Redemp"
 			elif (itemNames[i] == "Refillable Potion"):
 				itemNames[i] = "Refill Pot"
 			elif (itemNames[i] == "Relic Shield"):
